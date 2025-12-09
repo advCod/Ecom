@@ -1,6 +1,7 @@
 package com.example.Ecom.controller;
 
 import com.example.Ecom.dto.AddCartItemRequest;
+import com.example.Ecom.dto.CartItemResponse;
 import com.example.Ecom.dto.UpdateCartItemRequest;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.springframework.web.bind.annotation.*;
