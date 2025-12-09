@@ -23,7 +23,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartItemResponse updateCartItem(String productId, int quantity) {
+    public CartItemResponse updateCartItem(Long id, AddCartItemRequest request) {
+
         return null;
     }
 

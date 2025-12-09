@@ -10,6 +10,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 
+import javax.swing.text.html.Option;
+
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -24,7 +28,7 @@ public class CartServiceTest {
     }
 
     @Test
-    void addProductToCart(){
+    void addProductToCartTest(){
         //request created
         AddCartItemRequest request = new AddCartItemRequest();
         request.setProductId("abcProduct");
@@ -44,5 +48,34 @@ public class CartServiceTest {
         assertEquals("abcProduct",response.getProductId());
         assertEquals(3,response.getQuantity());
         verify(repository, times(1)).save(any(CartItem.class));
+    }
+
+    @Test
+    void updateQuantityTest(){
+        //Arrangement
+        CartItem exisitngItem = new CartItem("pqrProduct",5);
+        exisitngItem.setId(1L);
+
+        when(repository.findById(1L)).thenReturn(Optional.of(exisitngItem));
+
+        AddCartItemRequest request = new AddCartItemRequest();
+        request.setProductId("pqrProduct");
+        request.setQuantity(10);
+
+        CartItemResponse response = service.updateCartItem(1L, request);
+        //verification
+        assertEquals("pqrProduct", response.getProductId());
+        assertEquals(10, response.getQuantity());
+        verify(repository).save(any(CartItem.class));
+    }
+
+    @Test
+    void deleteCartItemTest(){
+        CartItem item = new CartItem("xyzProduct",20);
+        item.setId(1L);
+
+        when(repository.findById(1L)).thenReturn(Optional.of(item));
+        service.removeFromCart("xyzProduct");
+        verify(repository).delete(item);
     }
 }

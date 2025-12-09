@@ -9,7 +9,7 @@ public interface CartService {
     //TODO: add update delete
 
     CartItemResponse addToCart(AddCartItemRequest request);
-    CartItemResponse updateCartItem(String productId, int quantity);
+    CartItemResponse updateCartItem(Long id, AddCartItemRequest request);
     void removeFromCart(String productId);
 
 
