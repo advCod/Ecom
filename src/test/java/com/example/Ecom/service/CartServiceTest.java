@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class CartServiceTest {
-    private CartServiceImpl service;
+    private CartService service;
     private CartItemRepository repository;
 
     @BeforeEach
@@ -35,14 +35,14 @@ public class CartServiceTest {
         savedItem.setProductId("abcProduct");
         savedItem.setQuantity(3);
 
-        when(CartItemRepository.save(ArgumentMatchers.any(CartItem.class))).thenReturn(savedItem);
+        when(repository.save(ArgumentMatchers.any(CartItem.class))).thenReturn(savedItem);
 
         //execution
         CartItemResponse response = service.addToCart(request);
 
         //verification
         assertEquals("abcProduct",response.getProductId());
-        assertEquals("3",response.getQuantity());
+        assertEquals(3,response.getQuantity());
         verify(repository, times(1)).save(any(CartItem.class));
     }
 }
