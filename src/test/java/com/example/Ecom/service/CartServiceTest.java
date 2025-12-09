@@ -57,6 +57,7 @@ public class CartServiceTest {
         exisitngItem.setId(1L);
 
         when(repository.findById(1L)).thenReturn(Optional.of(exisitngItem));
+        when(repository.save(any(CartItem.class))).thenReturn(exisitngItem);
 
         AddCartItemRequest request = new AddCartItemRequest();
         request.setProductId("pqrProduct");
@@ -75,7 +76,7 @@ public class CartServiceTest {
         item.setId(1L);
 
         when(repository.findById(1L)).thenReturn(Optional.of(item));
-        service.removeFromCart("xyzProduct");
+        service.removeFromCart(item.getId());
         verify(repository).delete(item);
     }
 }

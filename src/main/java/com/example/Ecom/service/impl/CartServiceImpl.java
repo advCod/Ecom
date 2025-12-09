@@ -6,8 +6,10 @@ import com.example.Ecom.model.CartItem;
 import com.example.Ecom.repository.CartItemRepository;
 import com.example.Ecom.service.CartService;
 
-public class CartServiceImpl implements CartService {
+import java.util.Optional;
 
+public class CartServiceImpl implements CartService {
+    //TODO: implement method
     private CartItemRepository repository;
 
     public CartServiceImpl(CartItemRepository repository) {
@@ -24,14 +26,22 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public CartItemResponse updateCartItem(Long id, AddCartItemRequest request) {
-
-        return null;
+        CartItem itemToBeUpdated = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Item not found"));
+        itemToBeUpdated.setProductId(request.getProductId());
+        itemToBeUpdated.setQuantity(request.getQuantity());
+        CartItem updated = repository.save(itemToBeUpdated);
+        CartItemResponse response = new CartItemResponse(updated.getProductId(), updated.getQuantity());
+        return response;
     }
 
     @Override
-    public void removeFromCart(String productId) {
+    public void removeFromCart(Long id) {
+        CartItem item = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Item not found"));
 
+        repository.delete(item);
     }
-    //TODO: implement method
+
 
 }

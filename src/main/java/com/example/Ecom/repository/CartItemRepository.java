@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CartItemRepository extends CrudRepository<CartItem, Long> {
     // TODO: CRUD
-
+    CartItem findByProductId(String productId);
 }

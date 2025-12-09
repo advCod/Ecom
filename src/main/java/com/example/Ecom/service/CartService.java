@@ -10,7 +10,7 @@ public interface CartService {
 
     CartItemResponse addToCart(AddCartItemRequest request);
     CartItemResponse updateCartItem(Long id, AddCartItemRequest request);
-    void removeFromCart(String productId);
+    void removeFromCart(Long id);
 
 
 }
