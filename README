@@ -1,0 +1,14 @@
+POST /cart/items
+{
+    "productId": "string",
+    "quantity": 1
+}
+
+PUT /cart/item/{productId}
+{
+    "quantity": 3
+}
+
+DELETE /cart/item/{productId}
+returns 204 no content
+
