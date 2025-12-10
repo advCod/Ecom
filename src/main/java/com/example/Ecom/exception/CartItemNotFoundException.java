@@ -1,4 +1,8 @@
 package com.example.Ecom.exception;
 
-public class CartItemNotFoundException {
+public class CartItemNotFoundException extends RuntimeException {
+    public CartItemNotFoundException(String message) {
+        super(message);
+    }
 }
+

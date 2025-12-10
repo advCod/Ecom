@@ -1,4 +1,8 @@
 package com.example.Ecom.exception;
 
-public class InvalidQuantityException {
+public class InvalidQuantityException extends RuntimeException {
+    public InvalidQuantityException(String message) {
+        super(message);
+    }
 }
+
