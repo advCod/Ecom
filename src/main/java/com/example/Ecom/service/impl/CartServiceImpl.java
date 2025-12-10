@@ -5,9 +5,11 @@ import com.example.Ecom.dto.CartItemResponse;
 import com.example.Ecom.model.CartItem;
 import com.example.Ecom.repository.CartItemRepository;
 import com.example.Ecom.service.CartService;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class CartServiceImpl implements CartService {
     //TODO: implement method
     private CartItemRepository repository;
