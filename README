@@ -1,14 +1,25 @@
-POST /cart/items
+API Documentation
+http://localhost:8080/swagger-ui/index.html
+
+How to Run
+mvn clean install
+mvn spring-boot:run
+
+POST /api/cart/items
 {
     "productId": "string",
     "quantity": 1
 }
 
-PUT /cart/item/{productId}
+PUT /api/cart/item/{id}
 {
     "quantity": 3
 }
 
-DELETE /cart/item/{productId}
-returns 204 no content
+DELETE /api/cart/item/{id}
+returns 200
+
+Custom exceptions include:
+    InvalidQuantityException
+    CartItemNotFoundException
 
