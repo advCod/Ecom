@@ -11,8 +11,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(CartController.class)
@@ -39,4 +41,30 @@ class CartControllerTest {
                 .andExpect(jsonPath("$.productId").value("ABC123"))
                 .andExpect(jsonPath("$.quantity").value(10));
     }
+
+    @Test
+    void updateCartItem() throws Exception {
+        CartItemResponse response = new CartItemResponse("XYZ9", 8);
+
+        when(service.updateCartItem(eq(1L), any(AddCartItemRequest.class)))
+                .thenReturn(response);
+
+        mvc.perform(put("/api/cart/item/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"productId\":\"XYZ9\",\"quantity\":8}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.productId").value("XYZ9"))
+                .andExpect(jsonPath("$.quantity").value(8));
+    }
+
+    @Test
+    void deleteCartItem() throws Exception {
+
+        mvc.perform(delete("/api/cart/item/123"))
+                .andExpect(status().isNoContent());
+
+        verify(service).removeFromCart(123L);
+    }
+
+
 }
